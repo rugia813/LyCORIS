@@ -898,6 +898,7 @@ def load_models_from_stable_diffusion_checkpoint(v2, ckpt_path, device="cpu", dt
         text_model = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14").to(device)
         logging.set_verbosity_warning()
 
+        converted_text_encoder_checkpoint['text_model.embeddings.position_ids'] = text_model.text_model.embeddings.position_ids
         info = text_model.load_state_dict(converted_text_encoder_checkpoint)
     print("loading text encoder:", info)
 
